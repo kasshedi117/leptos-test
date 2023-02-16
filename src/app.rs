@@ -38,5 +38,13 @@ fn HomePage(cx: Scope) -> impl IntoView {
     view! { cx,
         <h1>"Welcome to Leptos!"</h1>
         <button on:click=on_click>"Click Me: " {count}</button>
+        <CustomComponent/>
+    }
+}
+
+#[component]
+fn CustomComponent(cx: Scope) -> impl IntoView  {
+    view! { cx,
+        <div>"customComponent"</div>
     }
 }
