@@ -39,6 +39,10 @@ fn HomePage(cx: Scope) -> impl IntoView {
         <h1>"Welcome to Leptos!"</h1>
         <button on:click=on_click>"Click Me: " {count}</button>
         <CustomComponent/>
+        <SimpleCounter 
+            initial_value=0
+            step=1
+        />
     }
 }
 
@@ -46,5 +50,24 @@ fn HomePage(cx: Scope) -> impl IntoView {
 fn CustomComponent(cx: Scope) -> impl IntoView  {
     view! { cx,
         <div>"customComponent"</div>
+    }
+}
+
+
+#[component]
+pub fn SimpleCounter(
+    cx: Scope,
+    initial_value: i32,
+    step: i32
+) -> impl IntoView  {
+    let (value, set_value) = create_signal(cx, initial_value);
+    
+    view! { cx, 
+        <div> 
+            <button on:click=move |_| set_value(0)>"Clear"</button>
+            <button on:click=move |_| set_value.update(|value| *value -= step)>"-" {step} </button>
+            <span>"Value: " { value } "!" </span>
+            <button on:click=move |_| set_value.update(|value| *value += step)>"+" {step} </button>
+        </div>
     }
 }
